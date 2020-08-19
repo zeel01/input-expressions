@@ -10,7 +10,7 @@
 		"main.js",
 		"math.min.js"
 	],
-	"manifest": "https://raw.githubusercontent.com/zeel01/ /master/module.json",
-	"url": "https://github.com/zeel01/",
-	"download": "https://github.com/zeel01/ /releases/download/ /.zip"
+	"manifest": "https://raw.githubusercontent.com/zeel01/input-expressions/master/module.json",
+	"url": "https://github.com/zeel01/input-expressions",
+	"download": "https://github.com/zeel01/input-expressions/releases/download/v1.0.1/module.zip"
 }
