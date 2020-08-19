@@ -15,7 +15,7 @@ function _onChangeInputDelta(event) {
 	if (/^[\+\-\/\*]/.test(value)) value = this.current + value;
 	try {
 		let evaluated = Number(eval(value));
-		if (isNaN(evaluated)) throw Error("The expressions did not have a numeric result.")
+		if (isNaN(evaluated)) throw Error("The expression did not have a numeric result.")
 		input.value = evaluated;
 	}
 	catch (e) {
