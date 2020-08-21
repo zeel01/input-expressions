@@ -1,34 +1,10 @@
-function _onChangeInputDelta(event) {
-	// Helpers
-	
-	let entity = this.entity;
-	let data = this.entity.data;
-	let abilities = this.entity.data.abilities;
-	let attributes = this.entity.data.attributes;
-
-	let scope = {
-		entity, data, abilities, attributes
+/* global inputExpression:readonly InputAdapter:readonly */
+class TextInputAdapter extends InputAdapter {
+	get value() {
+		return this.element.value;
 	}
-
-	// 
-	const input = event.target;
-	let value = input.value;
-
-	if (value == "") return;
-
-	if (/^[\+\-\/\*]/.test(value)) value = this.current + value;
-	try {
-		let evaluated = Number(math.evaluate(value, scope));
-//		let evaluated = Number(eval(value));
-		if (isNaN(evaluated)) throw Error("The expression did not have a numeric result.")
-		input.value = evaluated;
-	}
-	catch (e) {
-		console.error(e);
-		ui.notifications.error(e);
-		event.preventDefault();
-		event.stopPropagation();
-		return
+	set value(val) {
+		this.element.value = val;
 	}
 }
 
@@ -36,8 +12,8 @@ Hooks.once("init", () => {
 	if (window.math?.roll) return;
 
 	function roll(args) {
-		let str = typeof args == "object"
-			? args.reduce((s, a) => s + a.toString().replace(/\s/g, ''), "")
+		let str = args instanceof Array
+			? args.reduce((s, a) => s + a.toString(), "").replace(/\s/g, "")
 			: args;
 
 		return new Roll(str).roll().total;
@@ -47,51 +23,43 @@ Hooks.once("init", () => {
 	math.import({ roll });
 });
 
-Hooks.on("renderActorSheet", (sheet, element, data) => {
-	const inputs = element.find('[data-dtype="Number"]');
-	inputs.off("change");
-	inputs.on("change", (event) => {
-		let current = getProperty(sheet.actor.data, event.target.name);
-		_onChangeInputDelta.bind({
-			current,
-			entity: sheet.actor.data
-		})(event);
+function sheetHook(element, sheetdata, appdata) {
+	element.find('[data-dtype="Number"]')
+	.off("change").on("change", (event) => {
+		const current = getProperty(sheetdata, event.target.name);
+		inputExpression(
+			new TextInputAdapter(event.target),
+			current, sheetdata, appdata, event
+		);
 	});
-});
-Hooks.on("renderItemSheet", (sheet, element, data) => {
-	const inputs = element.find('[data-dtype="Number"]');
-	inputs.off("change");
-	inputs.on("change", (event) => {
-		let current = getProperty(sheet.item.data, event.target.name);
-		_onChangeInputDelta.bind({
-			current,
-			entity: sheet.item.data
-		})(event);
-	});
-});
+}
+
+Hooks.on("renderActorSheet", (sheet, element, data) => sheetHook(element, sheet.actor.data, data));
+Hooks.on("renderItemSheet", (sheet, element, data) => sheetHook(element, sheet.item.data, data));
+
+
+
 Hooks.on("renderTokenHUD", (hud, element, data) => {
-	const inputs = element.find(".attribute input");
-	inputs.off("change");
-	inputs.on("change", (event) => {
+	element.find(".attribute input")
+	.off("change").on("change", (event) => {
 		const input = event.target
-		let bar = input.dataset.bar;
-		let target, c;
+		const bar = input.dataset.bar;
+		let current;
 		if (bar) {
-			target = hud.object.data[bar].attribute;
-			c = getProperty(hud.object.actor.data.data, target);
-			if (typeof c == "object") {
-				target += ".value";
-				c = getProperty(hud.object.actor.data.data, target);
+			current = getProperty(hud.object.actor.data.data, hud.object.data[bar].attribute);
+			// Sometimes the attribute is just a value, sometimes it's an object with value/max
+			if (typeof current == "object") {
+				current = current.value;
 			}
 		}
-		else {
-			c = hud.object.data[input.name];
-		}
-		const current = c;
-		_onChangeInputDelta.bind({
-			current,
-			entity: hud.object.actor.data
-		})(event);
+		else current = hud.object.data[input.name];
+		
+		inputExpression(
+			new TextInputAdapter(input),
+			current, hud.object.actor.data, data, event
+		);
+
 		hud._onAttributeUpdate(event);
 	});
 });
+
