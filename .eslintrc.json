@@ -1,0 +1,10 @@
+{   
+    "env": {
+        "es2020": true,
+        "jquery": true
+    },
+	"parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "script"
+    }
+}
