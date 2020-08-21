@@ -59,3 +59,23 @@ function inputExpression(input, current, entity, data, event) {
 		return
 	}
 }
+/**
+ * Used by Hooks.on("init") to register the roll function to the
+ * Math.js math object.
+ *
+ * @return {null} 
+ *//* exported inputExprInitHandler */
+function inputExprInitHandler() {
+	if (window.math?.roll) return;
+
+	function roll(args) {
+		let str = args instanceof Array
+			? args.reduce((s, a) => s + a.toString(), "").replace(/\s/g, "")
+			: args;
+
+		return new Roll(str).roll().total;
+	}
+	roll.rawArgs = true;
+
+	math.import({ roll });
+}

@@ -1,4 +1,4 @@
-/* global inputExpression:readonly InputAdapter:readonly */
+/* global inputExpression:readonly InputAdapter:readonly inputExprInitHandler:readonly */
 class TextInputAdapter extends InputAdapter {
 	get value() {
 		return this.element.value;
@@ -8,20 +8,7 @@ class TextInputAdapter extends InputAdapter {
 	}
 }
 
-Hooks.once("init", () => {
-	if (window.math?.roll) return;
-
-	function roll(args) {
-		let str = args instanceof Array
-			? args.reduce((s, a) => s + a.toString(), "").replace(/\s/g, "")
-			: args;
-
-		return new Roll(str).roll().total;
-	}
-	roll.rawArgs = true;
-
-	math.import({ roll });
-});
+Hooks.once("init", inputExprInitHandler);
 
 function sheetHook(element, sheetdata, appdata) {
 	element.find('[data-dtype="Number"]')
@@ -36,8 +23,6 @@ function sheetHook(element, sheetdata, appdata) {
 
 Hooks.on("renderActorSheet", (sheet, element, data) => sheetHook(element, sheet.actor.data, data));
 Hooks.on("renderItemSheet", (sheet, element, data) => sheetHook(element, sheet.item.data, data));
-
-
 
 Hooks.on("renderTokenHUD", (hud, element, data) => {
 	element.find(".attribute input")
