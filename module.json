@@ -3,7 +3,7 @@
 	"title": "Input Expressions",
 	"description": "Allows for mathematical expressions to be entered into numeric inputs.",
 	"author": "zeel",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"minimumCoreVersion": "0.6.5",
 	"compatibleCoreVersion": "0.6.5",
 	"scripts": [
