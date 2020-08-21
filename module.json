@@ -7,8 +7,9 @@
 	"minimumCoreVersion": "0.6.5",
 	"compatibleCoreVersion": "0.6.5",
 	"scripts": [
-		"main.js",
-		"math.min.js"
+		"math.min.js",
+		"handler.js",
+		"main.js"
 	],
 	"manifest": "https://raw.githubusercontent.com/zeel01/input-expressions/master/module.json",
 	"url": "https://github.com/zeel01/input-expressions",
