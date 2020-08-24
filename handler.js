@@ -31,11 +31,11 @@ class InputAdapter {
  * @param {Entity} entity - The entity, such as Actor, or Item that this input is associated with
  * @param {object} data - The data object passed to the sheet template
  * @param {Event} event - The event that triggered this expression evaluation
- * @return {null} There is no return value.
+ * @return {string} Returns the new value for the input.
  *//* exported inputExpression */
 function inputExpression(input, current, entity, data, event) {
 	let value = input.value;
-	if (value == "") return;
+	if (value == "") return "";
 	
 	// Helpers
 	const scope = {
@@ -50,13 +50,14 @@ function inputExpression(input, current, entity, data, event) {
 
 		if (isNaN(evaluated)) throw Error("The expression did not have a numeric result.")
 		input.value = evaluated;
+		return evaluated;
 	}
 	catch (e) {
 		console.error(e);
 		ui.notifications.error(e);
 		event.preventDefault();
 		event.stopPropagation();
-		return
+		return current;
 	}
 }
 /**
