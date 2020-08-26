@@ -37,7 +37,7 @@ function inputExpression(input, current,  { event, entity, data, actor }) {
 	
 	// Helpers
 	const scope = {
-		entity, data,
+		entity, data, actor,
 		abilities: actor?.data?.data?.abilities, 
 		attributes: actor?.data?.data?.attributes
 	}
