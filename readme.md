@@ -8,3 +8,5 @@ Additionally, there is a `roll()` helper function, which can be used to roll dic
 roll(3d6)
 ```
 When working with a token/actor, access to the `attributes` and `abilities` objects are also available. For more advanced users, `entity` allows access to the entire Entity, and `data` is a shortcut to its data property.
+
+## Todo: Developer Guide
