@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/zeel01/input-expressions#readme",
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.0.2"
   }
 }
