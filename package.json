@@ -1,0 +1,19 @@
+{
+  "name": "input-expressions",
+  "version": "1.2.0",
+  "description": "Allows for mathematical expressions to be entered into numeric inputs.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeel01/input-expressions.git"
+  },
+  "author": "zeel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeel01/input-expressions/issues"
+  },
+  "homepage": "https://github.com/zeel01/input-expressions#readme"
+}
