@@ -11,5 +11,5 @@ function createRelease(cb) {
 	  .pipe(Gulp.dest("./"));
 }
 
-exports.release = createRelease;
+exports.zip = createRelease;
 exports.default = createRelease;
