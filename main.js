@@ -10,19 +10,23 @@ class TextInputAdapter extends InputAdapter {
 
 Hooks.once("init", inputExprInitHandler);
 
-function sheetHook(element, sheetdata, appdata) {
+function sheetHook(sheet, element, sheetdata, appdata) {
 	element.find('[data-dtype="Number"]')
 	.off("change").on("change", (event) => {
 		const current = getProperty(sheetdata, event.target.name);
 		inputExpression(
-			new TextInputAdapter(event.target),
-			current, sheetdata, appdata, event
+			new TextInputAdapter(event.target), current, {
+				entity: sheetdata,
+				data: appdata,
+				event,
+				actor: sheet.actor
+			}
 		);
 	});
 }
 
-Hooks.on("renderActorSheet", (sheet, element, data) => sheetHook(element, sheet.actor.data, data));
-Hooks.on("renderItemSheet", (sheet, element, data) => sheetHook(element, sheet.item.data, data));
+Hooks.on("renderActorSheet", (sheet, element, data) => sheetHook(sheet, element, sheet.actor.data, data));
+Hooks.on("renderItemSheet", (sheet, element, data) => sheetHook(sheet, element, sheet.item.data, data));
 
 Hooks.on("renderTokenHUD", (hud, element, data) => {
 	element.find(".attribute input")
@@ -40,8 +44,11 @@ Hooks.on("renderTokenHUD", (hud, element, data) => {
 		else current = hud.object.data[input.name];
 		
 		inputExpression(
-			new TextInputAdapter(input),
-			current, hud.object.actor.data, data, event
+			new TextInputAdapter(input), current, { 
+				entity: hud.object.actor.data,
+				actor: hud.object.actor,
+				data, event
+			}
 		);
 
 		hud._onAttributeUpdate(event);

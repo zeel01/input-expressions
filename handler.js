@@ -28,24 +28,23 @@ class InputAdapter {
  *
  * @param {InputAdapter} input - The input field, must be read/writable.
  * @param {*} current - The current value of the input field target.
- * @param {Entity} entity - The entity, such as Actor, or Item that this input is associated with
- * @param {object} data - The data object passed to the sheet template
- * @param {Event} event - The event that triggered this expression evaluation
+ * @param {Object} { entity, data, actor } - Additional data for the context
  * @return {string} Returns the new value for the input.
  *//* exported inputExpression */
-function inputExpression(input, current, entity, data, event) {
+function inputExpression(input, current,  { event, entity, data, actor }) {
 	let value = input.value;
 	if (value == "") return "";
 	
 	// Helpers
 	const scope = {
 		entity, data,
-		abilities: entity.data.abilities, 
-		attributes: entity.data.attributes
+		abilities: actor?.data?.data?.abilities, 
+		attributes: actor?.data?.data?.attributes
 	}
 
 	if (/^[+\-/*]/.test(value)) value = current + value;
 	try {
+		value = inputFixer(value);
 		let evaluated = Number(math.evaluate(value, scope));
 
 		if (isNaN(evaluated)) throw Error("The expression did not have a numeric result.")
@@ -55,8 +54,10 @@ function inputExpression(input, current, entity, data, event) {
 	catch (e) {
 		console.error(e);
 		ui.notifications.error(e);
-		event.preventDefault();
-		event.stopPropagation();
+		if (event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 		return current;
 	}
 }
@@ -79,4 +80,15 @@ function inputExprInitHandler() {
 	roll.rawArgs = true;
 
 	math.import({ roll });
+}
+/**
+ * This function runs fixes on the input string to correct common problems
+ * - `.mod`: Math.js doesn't like the mod property of ability scores
+ *   because it thinks it's a module function. So convert to array access style.
+ *
+ * @param {string} str - The expression string.
+ */
+function inputFixer(str) {
+	str = str.replace(/\.mod/, "['mod']");
+	return str;
 }
