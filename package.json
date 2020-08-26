@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zeel01/input-expressions/issues"
   },
-  "homepage": "https://github.com/zeel01/input-expressions#readme"
+  "homepage": "https://github.com/zeel01/input-expressions#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
 }
