@@ -47,7 +47,7 @@ Hooks.on("renderTokenHUD", (hud, element, data) => {
 			new TextInputAdapter(input), current, { 
 				entity: hud.object.actor.data,
 				actor: hud.object.actor,
-				data, event
+				data, event, negativesAreDelta: true
 			}
 		);
 

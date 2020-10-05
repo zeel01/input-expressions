@@ -27,11 +27,16 @@ class InputAdapter {
  * This function is used to handle all Input Expressions evaluations
  *
  * @param {InputAdapter} input - The input field, must be read/writable.
- * @param {*} current - The current value of the input field target.
- * @param {Object} { entity, data, actor } - Additional data for the context
- * @return {string} Returns the new value for the input.
+ * @param {number|string} current - The current value of the input field target.
+ * @param {Object} options - Additional data for the context
+ * @param {Event} options.event - The event that triggered this evaluation
+ * @param {Entity} options.entity - The Entity whoes data is being operated on
+ * @param {object} options.data - The data of the Entity
+ * @param {Actor} options.actor - An actor associated with this evaluation
+ * @param {Boolean} options.negativesAreDelta - When true, the value will not be set to an absolute negative, it will be a delta instead.
+ * @return {number|string} Returns the new value for the input.
  *//* exported inputExpression */
-function inputExpression(input, current,  { event, entity, data, actor }) {
+function inputExpression(input, current, { event, entity, data, actor, negativesAreDelta }) {
 	let value = input.value;
 	if (value == "") return "";
 	
@@ -48,6 +53,12 @@ function inputExpression(input, current,  { event, entity, data, actor }) {
 		let evaluated = Number(math.evaluate(value, scope));
 
 		if (isNaN(evaluated)) throw Error("The expression did not have a numeric result.")
+
+		if (negativesAreDelta && evaluated < 0) {
+			evaluated = -1 * (current - evaluated);			// Convert the negative number to a delta
+			if (evaluated > 0) evaluated = "+" + evaluated;	// Add a plus sign if it's posatve
+		}
+
 		input.value = evaluated;
 		return evaluated;
 	}
