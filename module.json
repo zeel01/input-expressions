@@ -3,8 +3,8 @@
 	"title": "Input Expressions",
 	"description": "Allows for mathematical expressions to be entered into numeric inputs.",
 	"author": "zeel",
-	"version": "1.3.0",
-	"minimumCoreVersion": "0.6.5",
+	"version": "1.3.1",
+	"minimumCoreVersion": "0.6.6",
 	"compatibleCoreVersion": "0.6.6",
 	"scripts": [
 		"math.min.js",
@@ -13,5 +13,5 @@
 	],
 	"manifest": "https://raw.githubusercontent.com/zeel01/input-expressions/master/module.json",
 	"url": "https://github.com/zeel01/input-expressions",
-	"download": "https://github.com/zeel01/input-expressions/releases/download/v1.3.0/module.zip"
+	"download": "https://github.com/zeel01/input-expressions/releases/download/v1.3.1/module.zip"
 }
