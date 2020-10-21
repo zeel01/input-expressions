@@ -5,8 +5,7 @@ function createRelease(cb) {
 	return Gulp.src([
 		"module.json",
 		"handler.js",
-		"main.js",
-		"math.min.js"
+		"main.js"
 	]).pipe(zip("module.zip"))
 	  .pipe(Gulp.dest("./"));
 }

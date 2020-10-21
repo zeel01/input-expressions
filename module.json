@@ -7,9 +7,15 @@
 	"minimumCoreVersion": "0.6.6",
 	"compatibleCoreVersion": "0.6.6",
 	"scripts": [
-		"math.min.js",
 		"handler.js",
 		"main.js"
+	],
+	"dependencies": [
+		{
+			"name": "_mathjs",
+			"type": "module",
+			"manifest": "https://raw.githubusercontent.com/League-of-Foundry-Developers/mathjs-lib/master/module.json"
+		}
 	],
 	"manifest": "https://raw.githubusercontent.com/zeel01/input-expressions/master/module.json",
 	"url": "https://github.com/zeel01/input-expressions",
