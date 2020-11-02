@@ -3,6 +3,14 @@
 	"title": "Input Expressions",
 	"description": "Allows for mathematical expressions to be entered into numeric inputs.",
 	"author": "zeel",
+	"authors": [
+		{
+			"name": "zeel",
+			"email": "zeel02@gmail.com",
+			"url": "https://github.com/zeel01",
+			"discord": "zeel#4200"
+		}
+	],
 	"version": "1.3.2",
 	"minimumCoreVersion": "0.6.6",
 	"compatibleCoreVersion": "0.7.5",
