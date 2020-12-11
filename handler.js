@@ -40,6 +40,7 @@ function inputExpression(input, current, { event, entity, data, actor, negatives
 	let value = input.value;
 	if (value == "") return "";
 	
+	current = current || 0;
 	// Helpers
 	const scope = {
 		entity, data, actor,
