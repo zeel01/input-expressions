@@ -29,11 +29,13 @@ class InputExpressionsHandlers {
 		const bar = input.dataset.bar;
 		let current;
 		if (bar) {
-			current = getProperty(obj.actor.data.data, obj.data[bar].attribute);
+			const prop = getProperty(obj.actor.data.data, obj.data[bar].attribute);
 			// Sometimes the attribute is just a value, sometimes it's an object with value/max
-			if (typeof current == "object") {
-				current = current.value;
+			if (typeof prop == "object") {
+				current = prop.value;
+				if (prop.temp) current += prop.temp;
 			}
+			else current = prop;
 		}
 		else current = obj.data[input.name];
 		
