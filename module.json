@@ -25,7 +25,7 @@
 			"manifest": "https://raw.githubusercontent.com/League-of-Foundry-Developers/mathjs-lib/master/module.json"
 		}
 	],
-	"manifest": "https://raw.githubusercontent.com/zeel01/releases/latest/download/module.json",
+	"manifest": "https://github.com/zeel01/input-expressions/releases/latest/download/module.json",
 	"url": "https://github.com/zeel01/input-expressions",
 	"download": "https://github.com/zeel01/input-expressions/releases/latest/download/input-expressions.zip",
 	"changelog": "https://github.com/zeel01/input-expressions/releases",
