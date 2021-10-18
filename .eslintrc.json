@@ -5,6 +5,6 @@
     },
 	"parserOptions": {
         "ecmaVersion": 11,
-        "sourceType": "script"
+        "sourceType": "module"
     }
 }

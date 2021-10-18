@@ -4,7 +4,7 @@
  *
  * @class InputAdapter
  *//* exported InputAdapter */
-class InputAdapter {
+export class InputAdapter {
 	/**
 	 * Creates an instance of InputAdapter.
 	 * @param {JQuery} element - Some element used for accepting input
@@ -36,7 +36,7 @@ class InputAdapter {
  * @param {Boolean} options.negativesAreDelta - When true, the value will not be set to an absolute negative, it will be a delta instead.
  * @return {number|string} Returns the new value for the input.
  *//* exported inputExpression */
-function inputExpression(input, current, { event, entity, data, actor, negativesAreDelta }) {
+export function inputExpression(input, current, { event, entity, data, actor, negativesAreDelta }) {
 	let value = input.value;
 	if (value == "") return "";
 	
@@ -79,7 +79,7 @@ function inputExpression(input, current, { event, entity, data, actor, negatives
  *
  * @return {null} 
  *//* exported inputExprInitHandler */
-function inputExprInitHandler() {
+export function inputExprInitHandler() {
 	if (window.math?.roll) return;
 
 	function roll(args) {
@@ -100,7 +100,7 @@ function inputExprInitHandler() {
  *
  * @param {string} str - The expression string.
  */
-function inputFixer(str) {
+export function inputFixer(str) {
 	str = str.replace(/\.mod/, "['mod']");
 	return str;
 }

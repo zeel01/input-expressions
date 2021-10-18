@@ -1,4 +1,5 @@
-/* global inputExpression:readonly InputAdapter:readonly inputExprInitHandler:readonly */
+import {InputAdapter, inputExpression, inputExprInitHandler} from "/handler.js";
+
 class TextInputAdapter extends InputAdapter {
 	get value() {
 		return this.element.value;
