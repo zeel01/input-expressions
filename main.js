@@ -30,7 +30,7 @@ class InputExpressionsHandlers {
 		const bar = input.dataset.bar;
 		let current;
 		if (bar) {
-			const prop = getProperty(obj.actor.data.data, obj.data[bar].attribute);
+			const prop = getProperty(obj.actor.system, obj.data[bar].attribute);
 			// Sometimes the attribute is just a value, sometimes it's an object with value/max
 			if (typeof prop == "object") {
 				current = prop.value;
@@ -54,8 +54,8 @@ class InputExpressionsHandlers {
 
 Hooks.once("init", inputExprInitHandler);
 
-Hooks.on("renderActorSheet", (sheet, element, data) => InputExpressionsHandlers.sheetHook(sheet, element, sheet.actor.data, data));
-Hooks.on("renderItemSheet", (sheet, element, data) => InputExpressionsHandlers.sheetHook(sheet, element, sheet.item.data, data));
+Hooks.on("renderActorSheet", (sheet, element, data) => InputExpressionsHandlers.sheetHook(sheet, element, sheet.actor, data));
+Hooks.on("renderItemSheet", (sheet, element, data) => InputExpressionsHandlers.sheetHook(sheet, element, sheet.item, data));
 
 Hooks.on("renderTokenHUD", (hud, element, data) => {
 	const obj = hud.object;
