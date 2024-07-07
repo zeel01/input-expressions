@@ -44,8 +44,8 @@ export function inputExpression(input, current, { event, entity, data, actor, ne
 	// Helpers
 	const scope = {
 		entity, data, actor,
-		abilities: actor?.data?.data?.abilities, 
-		attributes: actor?.data?.data?.attributes
+		abilities: actor?.system?.abilities, 
+		attributes: actor?.system?.attributes
 	}
 
 	if (/^[+\-/*]/.test(value)) value = current + value;
